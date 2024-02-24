@@ -17,16 +17,16 @@ limitations under the License.
 // for debugging if the add=on is connected 
 // document.body.style.border = "5px solid red"
 
-let STATE_KEY = "STATE_KEY"
+//let STATE_KEY = "STATE_KEY"
 
 function dark() {
   return {
-    txtColor: browser.storage.sync.get("txtColor") || '#8F99A5',
-    backgroundColor: browser.storage.sync.get("backgroundColor") || "#2A2C37",
-    testColor: browser.storage.sync.get("testColor") || '#1FED18',
-    darkBlueColor: browser.storage.sync.get("darkBlueColor") || '#000022',
-    codeBackground: browser.storage.sync.get("codeBackground") || '#1c1c1c',
-    linkColor: browser.storage.sync.get("linkColor") || '#687b9a'
+    txtColor: localStorage.getItem('txtColor') || '#8F99A5',
+    backgroundColor: localStorage.getItem('backgroundColor') || "#2A2C37",
+    testColor: localStorage.getItem('testColor') || '#1FED18',
+    darkBlueColor: localStorage.getItem('darkBlueColor') || '#000022',
+    codeBackground: localStorage.getItem('codeBackground') || '#1c1c1c',
+    linkColor: localStorage.getItem('linkColor') || '#687b9a'
   }
 }
 
@@ -114,31 +114,32 @@ function changeColors(colors) {
 }
 
 function doIfKey(e) {
-  // console.log(e.code)
-  // console.log(STATE);
+  console.log(e.code)
+  //console.log(STATE);
   if (!e.ctrlKey || !e.shiftKey || e.code !== "KeyU") {
-    // console.log("not ctrl + shift + u);
+    //console.log("not ctrl + shift + u");
     return
   }
-  // console.log("ctrl + shift + u")
+  //console.log("ctrl + shift + u")
 
-  let STATE = localStorage.getItem(STATE_KEY);
-
+  let STATE = localStorage.getItem('STATE_KEY');
+  console.log("Current State:", STATE);
   if (STATE === "0") {
     STATE = "1"
-    localStorage.setItem(STATE_KEY, STATE);
+    localStorage.setItem('STATE_KEY', STATE);
     changeColors(pink())
   }
   else if (STATE === "1") {
     STATE = "2"
-    localStorage.setItem(STATE_KEY, STATE);
+    localStorage.setItem('STATE_KEY', STATE);
     document.location.reload();
   } 
   else if (STATE === "2") {
     STATE = "0"
-    localStorage.setItem(STATE_KEY, STATE);
+    localStorage.setItem('STATE_KEY', STATE);
     changeColors(dark())
   }
+  console.log("New State:", STATE);  
 }
 
 document.addEventListener('keydown', doIfKey);
@@ -149,15 +150,16 @@ function start() {
     console.log("Sorry! No Web Storage support..");
     return
   }
-  // console.log("Code for localStorage/sessionStorage.")
+  console.log("Code for localStorage/sessionStorage.")
 
   // Retrieve from Store
-  const STATE = localStorage.getItem(STATE_KEY);
-  // console.log("STATE IS: ", STATE);
+  const STATE = localStorage.getItem('STATE_KEY');
+  console.log("STATE IS: ", STATE);
 
   if (STATE === null) {
     // First time. We want the dark theme. It has STATE 0.
-    localStorage.setItem(STATE_KEY, 0);
+    STATE = "0";
+    localStorage.setItem('STATE_KEY', STATE);
     changeColors(dark())
     return
   } 
