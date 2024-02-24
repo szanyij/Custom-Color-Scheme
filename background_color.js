@@ -20,6 +20,9 @@ limitations under the License.
 //let STATE_KEY = "STATE_KEY"
 
 function dark() {
+  let lbackgroundColor = browser.storage.sync.get('backgroundColor');
+  console.log('backgroundColor: ', lbackgroundColor);
+  console.log('STATE_KEY: ', localStorage.getItem('STATE_KEY'));
   return {
     txtColor: localStorage.getItem('txtColor') || '#8F99A5',
     backgroundColor: localStorage.getItem('backgroundColor') || "#2A2C37",
@@ -121,7 +124,8 @@ function doIfKey(e) {
     return
   }
   //console.log("ctrl + shift + u")
-
+  let lbackgroundColor = JSON.parse(localStorage.getItem('backgroundColor'));
+  console.log('backgroundColor: ', lbackgroundColor);
   let STATE = localStorage.getItem('STATE_KEY');
   console.log("Current State:", STATE);
   if (STATE === "0") {
@@ -144,6 +148,20 @@ function doIfKey(e) {
 
 document.addEventListener('keydown', doIfKey);
 
+/*const asyncLocalStorage = {
+  setItem(key, value) {
+      return Promise.resolve().then(function () {
+          localStorage.setItem(key, value);
+      });
+  },
+  getItem(key) {
+      return Promise.resolve().then(function () {
+          return localStorage.getItem(key);
+      });
+  }
+};*/
+//const asyncLocalStorage = {   setItem: (key, val) => Promise.resolve(localStorage.setItem(key, val)),   getItem: key => Promise.resolve(localStorage.getItem(key)), }
+
 // start is called when the page is loaded or reloaded
 function start() {
   if (typeof(Storage) === "undefined") {
@@ -154,9 +172,13 @@ function start() {
 
   // Retrieve from Store
   const STATE = localStorage.getItem('STATE_KEY');
-  console.log("STATE IS: ", STATE);
-
-  if (STATE === null) {
+  console.log(">>>STATE IS: ", STATE);
+  let lbackgroundColor = localStorage.getItem('backgroundColor');
+  console.log('backgroundColor: ', lbackgroundColor);
+  chrome.storage.sync.get("backgroundColor", function (obj) {
+    console.log(obj);
+});
+if (STATE === null) {
     // First time. We want the dark theme. It has STATE 0.
     STATE = "0";
     localStorage.setItem('STATE_KEY', STATE);
@@ -172,4 +194,5 @@ function start() {
   const color = STATE === "0" ? dark() : pink()
   changeColors(color)
 }
+//document.addEventListener("DOMContentLoaded", start);
 start()
