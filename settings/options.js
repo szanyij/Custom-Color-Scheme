@@ -37,7 +37,7 @@ function saveOptions(e) {
         document.querySelector("#backgroundColor").value = result.backgroundColor || "#2A2C37";
     }
     function setCurrentChoicetestColor(result) {
-        document.querySelector("#testColor").value = result.testColor || "1FED18";
+        document.querySelector("#testColor").value = result.testColor || "#1FED18";
     }
     function setCurrentChoicedarkBlueColor(result) {
         document.querySelector("#darkBlueColor").value = result.darkBlueColor || "#000022";

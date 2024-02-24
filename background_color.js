@@ -33,7 +33,7 @@ function dark() {
 function pink() {
   return {
     txtColor: '#444', 
-    backgroundColor: "#ddbaba",  // pink
+    backgroundColor: "#ddffff",  // pink
     testColor: '#1FED18',  // green 
     darkBlueColor: '#000022',
     codeBackground: '#bcbcbc',  
