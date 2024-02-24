@@ -124,7 +124,7 @@ function doIfKey(e) {
     return
   }
   //console.log("ctrl + shift + u")
-  let lbackgroundColor = JSON.parse(localStorage.getItem('backgroundColor'));
+  let lbackgroundColor = localStorage.getItem('backgroundColor');
   console.log('backgroundColor: ', lbackgroundColor);
   let STATE = localStorage.getItem('STATE_KEY');
   console.log("Current State:", STATE);
