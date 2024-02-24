@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Background color",
+  "name": "Custom Color Scheme",
   "version": "1.0",
 
-  "description": "A shortcut to change background color in Firefox. It has light on dark, dark on pink and original. The shortcut is ctrl + shift + u.",
+  "description": "A Firefox add-on that has a shortcut to change background color in Firefox. It has a settings page to setup colors. Switch color profile with ctrl + shift + u (profile1, original, profile2).",
 
   "icons": {
     "48": "icons/bgcolor-48.png"
@@ -18,7 +18,7 @@
 
   "browser_specific_settings": {
     "gecko": {
-      "id": "backgroundcolor@mathiashh.dk"
+      "id": "szanyij@gmail.com"
     }
   }
 }
