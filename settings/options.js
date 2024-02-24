@@ -5,6 +5,7 @@ testColor: '#1FED18',
 darkBlueColor: '#000022',
 codeBackground: '#1c1c1c',
 linkColor: '#687b9a' 
+#D4D4D4
 */
 function saveOptions(e) {
     e.preventDefault();

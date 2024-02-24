@@ -11,14 +11,13 @@
 
   "content_scripts": [
     {
-      "_comment": ["<all_urls>"],
       "matches": ["*://*.mozilla.org/*"],      
       "js": ["background_color.js"]
     }
   ],
 
   "options_ui": {
-    "page": "options.html"
+    "page": "settings/options.html"
   },
   
   "permissions": ["storage"],
