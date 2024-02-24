@@ -31,22 +31,22 @@ function saveOptions(e) {
   
   function restoreOptions() {
     function setCurrentChoicetxtColor(result) {
-        document.querySelector("#txtColor").value = result.color || "#8F99A5";
+        document.querySelector("#txtColor").value = result.txtColor || "#8F99A5";
     }
     function setCurrentChoicebackgroundColor(result) {
-        document.querySelector("#backgroundColor").value = result.color || "#2A2C37";
+        document.querySelector("#backgroundColor").value = result.backgroundColor || "#2A2C37";
     }
     function setCurrentChoicetestColor(result) {
-        document.querySelector("#testColor").value = result.color || "1FED18";
+        document.querySelector("#testColor").value = result.testColor || "1FED18";
     }
     function setCurrentChoicedarkBlueColor(result) {
-        document.querySelector("#darkBlueColor").value = result.color || "#000022";
+        document.querySelector("#darkBlueColor").value = result.darkBlueColor || "#000022";
     }    
     function setCurrentChoicecodeBackground(result) {
-        document.querySelector("#codeBackground").value = result.color || "#1c1c1c";
+        document.querySelector("#codeBackground").value = result.codeBackground || "#1c1c1c";
     }
     function setCurrentChoicelinkColor(result) {
-        document.querySelector("#linkColor").value = result.color || "#687b9a";
+        document.querySelector("#linkColor").value = result.linkColor || "#687b9a";
     }
   
     function onError(error) {
