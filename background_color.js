@@ -21,12 +21,12 @@ let STATE_KEY = "STATE_KEY"
 
 function dark() {
   return {
-    txtColor: browser.storage.sync.get("txtColor"),//'#8F99A5',
-    backgroundColor: browser.storage.sync.get("backgroundColor"),//"#2A2C37",
-    testColor: browser.storage.sync.get("testColor"),//'#1FED18',
-    darkBlueColor: browser.storage.sync.get("darkBlueColor"),//'#000022',
-    codeBackground: browser.storage.sync.get("codeBackground"),//'#1c1c1c',
-    linkColor: browser.storage.sync.get("linkColor"),//'#687b9a'
+    txtColor: browser.storage.sync.get("txtColor") || '#8F99A5',
+    backgroundColor: browser.storage.sync.get("backgroundColor") || "#2A2C37",
+    testColor: browser.storage.sync.get("testColor") || '#1FED18',
+    darkBlueColor: browser.storage.sync.get("darkBlueColor") || '#000022',
+    codeBackground: browser.storage.sync.get("codeBackground") || '#1c1c1c',
+    linkColor: browser.storage.sync.get("linkColor") || '#687b9a'
   }
 }
 
