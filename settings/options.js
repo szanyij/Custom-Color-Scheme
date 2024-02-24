@@ -30,12 +30,22 @@ function saveOptions(e) {
     }
   
   function restoreOptions() {
-    function setCurrentChoice(result) {
+    function setCurrentChoicetxtColor(result) {
         document.querySelector("#txtColor").value = result.color || "#8F99A5";
+    }
+    function setCurrentChoicebackgroundColor(result) {
         document.querySelector("#backgroundColor").value = result.color || "#2A2C37";
+    }
+    function setCurrentChoicetestColor(result) {
         document.querySelector("#testColor").value = result.color || "1FED18";
+    }
+    function setCurrentChoicedarkBlueColor(result) {
         document.querySelector("#darkBlueColor").value = result.color || "#000022";
+    }    
+    function setCurrentChoicecodeBackground(result) {
         document.querySelector("#codeBackground").value = result.color || "#1c1c1c";
+    }
+    function setCurrentChoicelinkColor(result) {
         document.querySelector("#linkColor").value = result.color || "#687b9a";
     }
   
@@ -43,18 +53,18 @@ function saveOptions(e) {
       console.log(`Error: ${error}`);
     }
   
-    let getting = browser.storage.sync.get("txtColor");
-    getting.then(setCurrentChoice, onError);
-    getting = browser.storage.sync.get("backgroundColor");
-    getting.then(setCurrentChoice, onError);
-    getting = browser.storage.sync.get("testColor");
-    getting.then(setCurrentChoice, onError);
-    getting = browser.storage.sync.get("darkBlueColor");
-    getting.then(setCurrentChoice, onError);
-    getting = browser.storage.sync.get("codeBackground");
-    getting.then(setCurrentChoice, onError);
-    getting = browser.storage.sync.get("linkColor");
-    getting.then(setCurrentChoice, onError);    
+    let gettingtxtColor = browser.storage.sync.get("txtColor");
+    gettingtxtColor.then(setCurrentChoicetxtColor, onError);
+    let gettingbackgroundColor = browser.storage.sync.get("backgroundColor");
+    gettingbackgroundColor.then(setCurrentChoicebackgroundColor, onError);
+    let gettingtestColor = browser.storage.sync.get("testColor");
+    gettingtestColor.then(setCurrentChoicetestColor, onError);
+    let gettingdarkBlueColor = browser.storage.sync.get("darkBlueColor");
+    gettingdarkBlueColor.then(setCurrentChoicedarkBlueColor, onError);
+    let gettingcodeBackground = browser.storage.sync.get("codeBackground");
+    gettingcodeBackground.then(setCurrentChoicecodeBackground, onError);
+    let gettinglinkColor = browser.storage.sync.get("linkColor");
+    gettinglinkColor.then(setCurrentChoicelinkColor, onError);    
   }
   
   document.addEventListener("DOMContentLoaded", restoreOptions);
