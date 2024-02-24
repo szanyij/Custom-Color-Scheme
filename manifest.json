@@ -16,6 +16,12 @@
     }
   ],
 
+  "options_ui": {
+    "page": "options.html"
+  },
+  
+  "permissions": ["storage"],
+
   "browser_specific_settings": {
     "gecko": {
       "id": "szanyij@gmail.com"
