@@ -38,14 +38,14 @@ function dark() {
       llinkColor = "#687b9a";
     }
     changeColors(
-    {
-      txtColor: ltxtColor,
-      backgroundColor: lbackgroundColor,
-      testColor: ltestColor,
-      darkBlueColor: ldarkBlueColor,
-      codeBackground: lcodeBackground,
-      linkColor: llinkColor
-    })
+      {
+        txtColor: ltxtColor,
+        backgroundColor: lbackgroundColor,
+        testColor: ltestColor,
+        darkBlueColor: ldarkBlueColor,
+        codeBackground: lcodeBackground,
+        linkColor: llinkColor
+      })
   }
   function onError(error) {
     console.log(`Error: ${error}`);
@@ -53,12 +53,12 @@ function dark() {
   let Colors = browser.storage.sync.get("Colors");
   Colors.then(returnColors, onError);
   /*  return {
-     txtColor: localStorage.getItem('txtColor') || '#8F99A5',
-     backgroundColor: localStorage.getItem('backgroundColor') || "#2A2C37",
-     testColor: localStorage.getItem('testColor') || '#1FED18',
-     darkBlueColor: localStorage.getItem('darkBlueColor') || '#000022',
-     codeBackground: localStorage.getItem('codeBackground') || '#1c1c1c',
-     linkColor: localStorage.getItem('linkColor') || '#687b9a'
+     txtColor: browser.storage.sync.get('txtColor') || '#8F99A5',
+     backgroundColor: browser.storage.sync.get('backgroundColor') || "#2A2C37",
+     testColor: browser.storage.sync.get('testColor') || '#1FED18',
+     darkBlueColor: browser.storage.sync.get('darkBlueColor') || '#000022',
+     codeBackground: browser.storage.sync.get('codeBackground') || '#1c1c1c',
+     linkColor: browser.storage.sync.get('linkColor') || '#687b9a'
    } */
 }
 
@@ -146,50 +146,40 @@ function changeColors(colors) {
 }
 
 function doIfKey(e) {
-  // console.log(e.code)
-  //console.log(STATE);
   if (!e.ctrlKey || !e.shiftKey || e.code !== "KeyU") {
-    //console.log("not ctrl + shift + u");
     return
   }
-  //console.log("ctrl + shift + u")
-  let lbackgroundColor = localStorage.getItem('backgroundColor');
-  // console.log('backgroundColor: ', lbackgroundColor);
-  let STATE = localStorage.getItem('STATE_KEY');
-  // console.log("Current State:", STATE);
-  if (STATE === "0") {
-    STATE = "1"
-    localStorage.setItem('STATE_KEY', STATE);
-    changeColors(pink())
+
+
+  let STATE = browser.storage.sync.get('STATE_KEY');
+  STATE.then(doIfKey_receiver, doIfKey_onError);
+
+  function doIfKey_receiver(result) {
+    let lSTATE = result.STATE_KEY;
+    if (lSTATE === "0") {
+      lSTATE = "1"
+      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      changeColors(pink())
+    }
+    else if (lSTATE === "1") {
+      lSTATE = "2"
+      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      document.location.reload();
+    }
+    else if (lSTATE === "2") {
+      lSTATE = "0"
+      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      dark()
+    }
   }
-  else if (STATE === "1") {
-    STATE = "2"
-    localStorage.setItem('STATE_KEY', STATE);
-    document.location.reload();
+
+  function doIfKey_onError(error) {
+    console.log(`Error: ${error}`);
   }
-  else if (STATE === "2") {
-    STATE = "0"
-    localStorage.setItem('STATE_KEY', STATE);
-    dark()
-  }
-  // console.log("New State:", STATE);
+
 }
 
 document.addEventListener('keydown', doIfKey);
-
-/*const asyncLocalStorage = {
-  setItem(key, value) {
-      return Promise.resolve().then(function () {
-          localStorage.setItem(key, value);
-      });
-  },
-  getItem(key) {
-      return Promise.resolve().then(function () {
-          return localStorage.getItem(key);
-      });
-  }
-};*/
-//const asyncLocalStorage = {   setItem: (key, val) => Promise.resolve(localStorage.setItem(key, val)),   getItem: key => Promise.resolve(localStorage.getItem(key)), }
 
 // start is called when the page is loaded or reloaded
 function start() {
@@ -197,34 +187,32 @@ function start() {
     console.log("Sorry! No Web Storage support..");
     return
   }
-  // console.log("Code for localStorage/sessionStorage.")
 
-  // Retrieve from Store
-  let STATE = localStorage.getItem('STATE_KEY');
-  // console.log(">>>STATE IS: ", STATE);
-  //let lbackgroundColor = localStorage.getItem('backgroundColor');
-  // console.log('backgroundColor: ', lbackgroundColor);
-  /*   chrome.storage.sync.get("backgroundColor", function (obj) {
-      console.log(obj);
-    }); */
-  if (STATE === null || STATE == "" || STATE == "0") {
-    // First time. We want the dark theme. It has STATE 0.
-    STATE = "0";
-    localStorage.setItem('STATE_KEY', STATE);
-    dark()
-    return
-  }
-  else if (STATE === "1")
-  {
-    changeColors(pink())
-  }
-  else if (STATE === "2") {
-    // this is the original page so do nothing
-    return
+  let STATE = browser.storage.sync.get('STATE_KEY');
+  STATE.then(start_receiver, start_onError);
+
+  function start_receiver(result) {
+    let lSTATE = result.STATE_KEY;
+    if (lSTATE === null || lSTATE === undefined || lSTATE == "" || lSTATE == "0") {
+      // First time. We want the dark theme. It has STATE 0.
+      lSTATE = "0";
+      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      dark()
+      return
+    }
+    else if (lSTATE === "1") {
+      changeColors(pink())
+    }
+    else if (lSTATE === "2") {
+      // this is the original page so do nothing
+      return
+    }
   }
 
-  // const color = STATE === "0" ? dark() : pink()
-  // changeColors(color)
+  function start_onError(error) {
+    console.log(`Error: ${error}`);
+  }
+
 }
 //document.addEventListener("DOMContentLoaded", start);
 start()
