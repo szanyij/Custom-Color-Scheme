@@ -8,7 +8,7 @@
 #D4D4D4
 */
 
-let gVersion = "1";
+let gVersion = "2";
 
 function saveOptions(e) {
     e.preventDefault();

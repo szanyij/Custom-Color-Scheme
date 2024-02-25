@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-let gVersion = "1";
+let gVersion = "2";
 
 function dark() {
   function returnColors(result) {
@@ -63,7 +63,7 @@ function pink() {
 
 function changeColors(colors) {
   const backgroundColor = colors.backgroundColor
-  const enableTextColoring = colors.enableTextColoring
+  const lEnableTextColoring = colors.enableTextColoring
   const txtColor = colors.txtColor
   const codeBackground = colors.codeBackground
   const linkColor = colors.linkColor
@@ -84,8 +84,7 @@ function changeColors(colors) {
     }
   }
 
-  IF(enableTextColoring === "1")
-  {
+  if (lEnableTextColoring === "1") {
     colorTextByTagName("p")
     colorTextByTagName("a", linkColor)
     colorTextByTagName("li")
