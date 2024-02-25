@@ -20,26 +20,54 @@ limitations under the License.
 //let STATE_KEY = "STATE_KEY"
 
 function dark() {
-  let lbackgroundColor = browser.storage.sync.get('backgroundColor');
-  console.log('backgroundColor: ', lbackgroundColor);
-  console.log('STATE_KEY: ', localStorage.getItem('STATE_KEY'));
-  return {
-    txtColor: localStorage.getItem('txtColor') || '#8F99A5',
-    backgroundColor: localStorage.getItem('backgroundColor') || "#2A2C37",
-    testColor: localStorage.getItem('testColor') || '#1FED18',
-    darkBlueColor: localStorage.getItem('darkBlueColor') || '#000022',
-    codeBackground: localStorage.getItem('codeBackground') || '#1c1c1c',
-    linkColor: localStorage.getItem('linkColor') || '#687b9a'
+  function returnColors(result) {
+    let ColorsList = result.split("|");
+    try {
+      ltxtColor = ColorsList[0];
+      lbackgroundColor = ColorsList[1];
+      ltestColor = ColorsList[2];
+      ldarkBlueColor = ColorsList[3];
+      lcodeBackground = ColorsList[4];
+      linkColor = ColorsList[5];
+    } catch (error) {
+      ltxtColor = "#8F99A5";
+      lbackgroundColor = "#2A2C37";
+      ltestColor = "#1FED18";
+      ldarkBlueColor = "#000022";
+      lcodeBackground = "#1c1c1c";
+      linkColor = "#687b9a";
+    }
+    return {
+      txtColor: ltxtColor,
+      backgroundColor: lbackgroundColor,
+      testColor: ltestColor,
+      darkBlueColor: ldarkBlueColor,
+      codeBackground: lcodeBackground,
+      linkColor: llinkColor
+    }
   }
+  function onError(error) {
+    console.log(`Error: ${error}`);
+  }
+  let Colors = browser.storage.sync.get("Colors");
+  Colors.then(returnColors, onError);
+  /*  return {
+     txtColor: localStorage.getItem('txtColor') || '#8F99A5',
+     backgroundColor: localStorage.getItem('backgroundColor') || "#2A2C37",
+     testColor: localStorage.getItem('testColor') || '#1FED18',
+     darkBlueColor: localStorage.getItem('darkBlueColor') || '#000022',
+     codeBackground: localStorage.getItem('codeBackground') || '#1c1c1c',
+     linkColor: localStorage.getItem('linkColor') || '#687b9a'
+   } */
 }
 
 function pink() {
   return {
-    txtColor: '#444', 
+    txtColor: '#444',
     backgroundColor: "#ddffff",  // pink
     testColor: '#1FED18',  // green 
     darkBlueColor: '#000022',
-    codeBackground: '#bcbcbc',  
+    codeBackground: '#bcbcbc',
     linkColor: '#4b7cf0'
   }
 }
@@ -117,7 +145,7 @@ function changeColors(colors) {
 }
 
 function doIfKey(e) {
-  console.log(e.code)
+  // console.log(e.code)
   //console.log(STATE);
   if (!e.ctrlKey || !e.shiftKey || e.code !== "KeyU") {
     //console.log("not ctrl + shift + u");
@@ -125,9 +153,9 @@ function doIfKey(e) {
   }
   //console.log("ctrl + shift + u")
   let lbackgroundColor = localStorage.getItem('backgroundColor');
-  console.log('backgroundColor: ', lbackgroundColor);
+  // console.log('backgroundColor: ', lbackgroundColor);
   let STATE = localStorage.getItem('STATE_KEY');
-  console.log("Current State:", STATE);
+  // console.log("Current State:", STATE);
   if (STATE === "0") {
     STATE = "1"
     localStorage.setItem('STATE_KEY', STATE);
@@ -137,13 +165,13 @@ function doIfKey(e) {
     STATE = "2"
     localStorage.setItem('STATE_KEY', STATE);
     document.location.reload();
-  } 
+  }
   else if (STATE === "2") {
     STATE = "0"
     localStorage.setItem('STATE_KEY', STATE);
     changeColors(dark())
   }
-  console.log("New State:", STATE);  
+  // console.log("New State:", STATE);
 }
 
 document.addEventListener('keydown', doIfKey);
@@ -164,33 +192,33 @@ document.addEventListener('keydown', doIfKey);
 
 // start is called when the page is loaded or reloaded
 function start() {
-  if (typeof(Storage) === "undefined") {
+  if (typeof (Storage) === "undefined") {
     console.log("Sorry! No Web Storage support..");
     return
   }
-  console.log("Code for localStorage/sessionStorage.")
+  // console.log("Code for localStorage/sessionStorage.")
 
   // Retrieve from Store
   const STATE = localStorage.getItem('STATE_KEY');
-  console.log(">>>STATE IS: ", STATE);
+  // console.log(">>>STATE IS: ", STATE);
   let lbackgroundColor = localStorage.getItem('backgroundColor');
-  console.log('backgroundColor: ', lbackgroundColor);
-  chrome.storage.sync.get("backgroundColor", function (obj) {
-    console.log(obj);
-});
-if (STATE === null) {
+  // console.log('backgroundColor: ', lbackgroundColor);
+  /*   chrome.storage.sync.get("backgroundColor", function (obj) {
+      console.log(obj);
+    }); */
+  if (STATE === null) {
     // First time. We want the dark theme. It has STATE 0.
     STATE = "0";
     localStorage.setItem('STATE_KEY', STATE);
     changeColors(dark())
     return
-  } 
+  }
 
   if (STATE === "2") {
     // this is the original page so do nothing
     return
-  } 
-  
+  }
+
   const color = STATE === "0" ? dark() : pink()
   changeColors(color)
 }
