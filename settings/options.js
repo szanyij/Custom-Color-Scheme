@@ -40,21 +40,21 @@ function saveOptions(e) {
 
 function restoreOptions() {
     function setCurrentColors(result) {
-        let ColorsList = result.split("|");
         try {
+            let ColorsList = result.Colors.split("|");
             ltxtColor = ColorsList[0];
             lbackgroundColor = ColorsList[1];
             ltestColor = ColorsList[2];
             ldarkBlueColor = ColorsList[3];
             lcodeBackground = ColorsList[4];
-            linkColor = ColorsList[5];
+            llinkColor = ColorsList[5];
         } catch (error) {
             ltxtColor = "#8F99A5";
             lbackgroundColor = "#2A2C37";
             ltestColor = "#1FED18";
             ldarkBlueColor = "#000022";
             lcodeBackground = "#1c1c1c";
-            linkColor = "#687b9a";
+            llinkColor = "#687b9a";
         }
         document.querySelector("#txtColor").value = ltxtColor;
         document.querySelector("#backgroundColor").value = lbackgroundColor;

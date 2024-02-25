@@ -21,30 +21,31 @@ limitations under the License.
 
 function dark() {
   function returnColors(result) {
-    let ColorsList = result.split("|");
+    let ColorsList = result.Colors.split("|");
     try {
       ltxtColor = ColorsList[0];
       lbackgroundColor = ColorsList[1];
       ltestColor = ColorsList[2];
       ldarkBlueColor = ColorsList[3];
       lcodeBackground = ColorsList[4];
-      linkColor = ColorsList[5];
+      llinkColor = ColorsList[5];
     } catch (error) {
       ltxtColor = "#8F99A5";
       lbackgroundColor = "#2A2C37";
       ltestColor = "#1FED18";
       ldarkBlueColor = "#000022";
       lcodeBackground = "#1c1c1c";
-      linkColor = "#687b9a";
+      llinkColor = "#687b9a";
     }
-    return {
+    changeColors(
+    {
       txtColor: ltxtColor,
       backgroundColor: lbackgroundColor,
       testColor: ltestColor,
       darkBlueColor: ldarkBlueColor,
       codeBackground: lcodeBackground,
       linkColor: llinkColor
-    }
+    })
   }
   function onError(error) {
     console.log(`Error: ${error}`);
@@ -169,7 +170,7 @@ function doIfKey(e) {
   else if (STATE === "2") {
     STATE = "0"
     localStorage.setItem('STATE_KEY', STATE);
-    changeColors(dark())
+    dark()
   }
   // console.log("New State:", STATE);
 }
@@ -199,28 +200,31 @@ function start() {
   // console.log("Code for localStorage/sessionStorage.")
 
   // Retrieve from Store
-  const STATE = localStorage.getItem('STATE_KEY');
+  let STATE = localStorage.getItem('STATE_KEY');
   // console.log(">>>STATE IS: ", STATE);
-  let lbackgroundColor = localStorage.getItem('backgroundColor');
+  //let lbackgroundColor = localStorage.getItem('backgroundColor');
   // console.log('backgroundColor: ', lbackgroundColor);
   /*   chrome.storage.sync.get("backgroundColor", function (obj) {
       console.log(obj);
     }); */
-  if (STATE === null) {
+  if (STATE === null || STATE == "" || STATE == "0") {
     // First time. We want the dark theme. It has STATE 0.
     STATE = "0";
     localStorage.setItem('STATE_KEY', STATE);
-    changeColors(dark())
+    dark()
     return
   }
-
-  if (STATE === "2") {
+  else if (STATE === "1")
+  {
+    changeColors(pink())
+  }
+  else if (STATE === "2") {
     // this is the original page so do nothing
     return
   }
 
-  const color = STATE === "0" ? dark() : pink()
-  changeColors(color)
+  // const color = STATE === "0" ? dark() : pink()
+  // changeColors(color)
 }
 //document.addEventListener("DOMContentLoaded", start);
 start()
