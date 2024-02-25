@@ -158,17 +158,17 @@ function doIfKey(e) {
     let lSTATE = result.STATE_KEY;
     if (lSTATE === "0") {
       lSTATE = "1"
-      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      browser.storage.sync.set({ STATE_KEY: lSTATE, });
       changeColors(pink())
     }
     else if (lSTATE === "1") {
       lSTATE = "2"
-      browser.storage.sync.set({STATE_KEY: lSTATE,});
-      document.location.reload();
+      browser.storage.sync.set({ STATE_KEY: lSTATE, });
+      document.location.reload();      
     }
     else if (lSTATE === "2") {
       lSTATE = "0"
-      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      browser.storage.sync.set({ STATE_KEY: lSTATE, });
       dark()
     }
   }
@@ -194,9 +194,10 @@ function start() {
   function start_receiver(result) {
     let lSTATE = result.STATE_KEY;
     if (lSTATE === null || lSTATE === undefined || lSTATE == "" || lSTATE == "0") {
-      // First time. We want the dark theme. It has STATE 0.
-      lSTATE = "0";
-      browser.storage.sync.set({STATE_KEY: lSTATE,});
+      if (lSTATE !== "0") {
+        lSTATE = "0";
+        browser.storage.sync.set({ STATE_KEY: lSTATE, });
+      }
       dark()
       return
     }
