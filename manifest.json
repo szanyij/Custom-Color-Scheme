@@ -2,31 +2,29 @@
   "manifest_version": 2,
   "name": "Custom Color Scheme",
   "version": "1.0",
-
   "description": "A Firefox add-on that has a shortcut to change background color in Firefox. It has a settings page to setup colors. Switch color profile with ctrl + shift + u (profile1, original, profile2).",
-
   "icons": {
     "48": "icons/bgcolor-48.png"
   },
-
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],    
-      "js": ["background_color.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "background_color.js"
+      ]
     }
   ],
-
   "options_ui": {
     "page": "settings/options.html"
   },
-  
-  "permissions": ["storage"],
-
+  "permissions": [
+    "storage"
+  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "szanyij@gmail.com"
     }
   }
 }
-
-
