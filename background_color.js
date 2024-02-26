@@ -118,7 +118,8 @@ function changeColors(colors) {
     for (let i = 0; i < elements.length; i++) {
       try {
         lNameUC = elements[i].className.toUpperCase();
-        if (!lNameUC.includes("OVERLAY", 0) && !lNameUC.includes("PLAYER", 0))
+        lIdUC = elements[i].id.toUpperCase();
+        if ((!lNameUC.includes("OVERLAY", 0) && !lNameUC.includes("PLAYER", 0)) && (!lIdUC.includes("DOCS-", 0)))
           elements[i].style.background = bgColor;
       } catch { }
     }
