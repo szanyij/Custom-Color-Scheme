@@ -114,7 +114,11 @@ function changeColors(colors) {
   function colorBackground(elementType, bgColor = backgroundColor, id) {
     const elements = document.getElementsByTagName(elementType);
     for (let i = 0; i < elements.length; i++) {
-      elements[i].style.background = bgColor;
+      try {
+        lNameUC = elements[i].className.toUpperCase();
+        if (!lNameUC.includes("OVERLAY", 0) && !lNameUC.includes("PLAYER", 0))
+          elements[i].style.background = bgColor;
+      } catch { }
     }
   }
 
@@ -205,4 +209,5 @@ function start() {
 
 }
 //document.addEventListener("DOMContentLoaded", start);
+console.log(">>> background_color.js started")
 start()
