@@ -8,6 +8,7 @@
 #D4D4D4
 */
 
+console.log(">>> options.js started")
 let gVersion = "2";
 
 function saveOptions(e) {
@@ -44,10 +45,10 @@ function restoreOptions() {
         } catch (error) {
             console.log(error);
             lVersion = gVersion;
-            lBackgroundColor = "#2A2C37";
+            lBackgroundColor = "#DFDFDF";
             lEnableTextColoring = "1";
             lTxtColor = "#8F99A5";
-            lCodeBackground = "#1c1c1c";
+            lCodeBackground = "#E5E5E5";
             lLinkColor = "#687b9a";
         }
         document.querySelector("#version").value = lVersion;

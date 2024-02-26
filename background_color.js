@@ -13,6 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+console.log(">>> background_color.js started")
+
 let gVersion = "2";
 
 function dark() {
@@ -29,10 +31,10 @@ function dark() {
       lLinkColor = ColorsList[5];
     } catch (error) {
       console.log(error);
-      lBackgroundColor = "#2A2C37";
+      lBackgroundColor = "#DFDFDF";
       lEnableTextColoring = "1";
       lTxtColor = "#8F99A5";
-      lCodeBackground = "#1c1c1c";
+      lCodeBackground = "#E5E5E5";
       lLinkColor = "#687b9a";
     }
     changeColors(
@@ -209,5 +211,5 @@ function start() {
 
 }
 //document.addEventListener("DOMContentLoaded", start);
-console.log(">>> background_color.js started")
+
 start()
